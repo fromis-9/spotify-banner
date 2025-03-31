@@ -88,7 +88,7 @@ If you want to run spotifybanner on your local machine:
 
 ## Development
 
-spotifybanner.com was created because there was no easy way to extract these banner images without using browser developer tools. It's built to be simple, focused, and useful.
+spotifybanner.com was created because there was no easy way to extract these banner images without using browser developer tools. It's built to be simple and useful.
 
 ## License
 
