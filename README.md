@@ -98,4 +98,4 @@ Not affiliated with Spotify
 
 ---
 
-Made with ❤️ by [@fromis-9]
+Made with ❤️ by @fromis-9
