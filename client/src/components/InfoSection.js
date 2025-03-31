@@ -5,7 +5,7 @@ import './InfoSection.css';
 function InfoSection() {
   return (
     <div className="info-section">
-      <h2>what is spotimage?</h2>
+      <h2>what is spotifybanner.com?</h2>
       
       <div className="info-content">
         <p>
