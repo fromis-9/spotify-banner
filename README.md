@@ -35,7 +35,7 @@ Visit [spotifybanner.com](https://spotifybanner.com) to use the tool right away!
 
 ### Running Locally
 
-If you want to run SpotifyBanner on your local machine:
+If you want to run spotifybanner on your local machine:
 
 1. Clone the repository
    ```
