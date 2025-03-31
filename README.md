@@ -23,9 +23,9 @@ Here are some examples of banners extracted using SpotifyBanner:
 
 | Artist | Banner |
 |--------|--------|
-| Olivia Rodrigo | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194b9e08cd875ff2a0f8ad0c334) |
-| Taylor Swift | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194632d765bdc111e40acbfab19) |
-| The Weeknd | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-fa.spotifycdn.com/image/ab6761860000019406f7730314d8eff6663d6918) |
+| Olivia Rodrigo | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194b9e08cd875ff2a0f8ad0c334)) |
+| Taylor Swift | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194632d765bdc111e40acbfab19)) |
+| The Weeknd | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-fa.spotifycdn.com/image/ab6761860000019406f7730314d8eff6663d6918)) |
 
 ## Getting Started
 
