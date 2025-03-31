@@ -37,6 +37,11 @@ body {
   display: inline;
 }
 
+.title {
+  color:white;
+  display: inline;
+}
+
 .subtitle {
   margin-top: 10px;
   font-size: 1.2rem;

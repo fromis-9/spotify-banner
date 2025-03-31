@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 class="green">spotify</h1><h1 class="white">banner</h1>
+        <h1 class="green">spotify</h1><h1 class="white">banner</h1><h3 class="title">.com</h3>
         <p className="subtitle">get an artist's spotify banner/header image</p>
       </header>
       
