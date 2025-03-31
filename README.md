@@ -1,7 +1,5 @@
 # spotifybanner.com
 
-![SpotifyBanner Logo](https://example.com/your-logo.png)
-
 **spotifybanner.com** is a simple, fast web application that extracts high-quality banner images from Spotify artist pages with a single click.
 
 ## Why spotifybanner.com?
