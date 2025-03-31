@@ -1,0 +1,216 @@
+/* client/src/components/SearchForm.css */
+.search-form-container {
+    background-color: #282828;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px; 
+    font-weight: 500;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 1px;
+    border: none;
+    border-radius: 10px;
+    background-color: #3E3E3E;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+  }
+  
+  .form-help {
+    display: block;
+    margin-top: 6px;
+    color: #b3b3b3;
+    font-size: 0.85rem;
+  }
+  
+  .submit-button {
+    background-color: #088233;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: center;
+  }
+  
+  .submit-button:hover:not(:disabled) {
+    background-color: #088233;
+  }
+  
+  .submit-button:disabled {
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 600px) {
+    .search-form-container {
+      padding: 15px;
+    }
+    
+    .submit-button {
+      width: 100%;
+    }
+  }
+  
+  /* client/src/components/BannerDisplay.css */
+  .banner-display {
+    background-color: #282828;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+  }
+  
+  .banner-display h2 {
+    color: #088233;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .banner-image-container {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .banner-image {
+    width: 100%;
+    display: block;
+  }
+  
+  .banner-info {
+    margin: 20px 0;
+  }
+  
+  .info-item {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-item strong {
+    margin-bottom: 5px;
+  }
+  
+  .info-link {
+    color: #088233;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  
+  .info-link:hover {
+    text-decoration: underline;
+  }
+  
+  .banner-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+  }
+  
+  .download-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .download-button:hover {
+    background-color: #444;
+  }
+  
+  @media (max-width: 600px) {
+    .banner-display {
+      padding: 15px;
+    }
+  }
+  
+  /* client/src/components/InfoSection.css */
+  .info-section {
+    background-color: #282828;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 30px 0;
+  }
+  
+  .info-section h2 {
+    color: #088233;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .info-content {
+    color: #e0e0e0;
+  }
+  
+  .process-steps {
+    margin: 25px 0;
+    padding-left: 20px;
+  }
+  
+  .process-steps li {
+    margin-bottom: 15px;
+  }
+  
+  .process-steps strong {
+    color: #088233;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .process-steps p {
+    margin: 0;
+    color: #b3b3b3;
+  }
+  
+  .technical-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #3e3e3e;
+  }
+  
+  .technical-info h3 {
+    color: #088233;
+    margin-bottom: 15px;
+  }
+  
+  .technical-info ul {
+    padding-left: 20px;
+  }
+  
+  .technical-info li {
+    margin-bottom: 8px;
+    color: #b3b3b3;
+  }
+
+  @media (max-width: 600px) {
+    .info-section {
+      padding: 15px;
+    }
+  }
