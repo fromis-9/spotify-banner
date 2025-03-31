@@ -92,7 +92,7 @@ spotifybanner.com was created because there was no easy way to extract these ban
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
 
 Not affiliated with Spotify
 
