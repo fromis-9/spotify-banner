@@ -35,7 +35,6 @@ function extractArtistId(artistUrl) {
 
 /**
  * Extracts the banner image URL from a Spotify artist page
- * Using Browserless.io for browser automation
  * @param {string} artistUrl - The Spotify artist URL
  * @returns {Promise<string|null>} - The banner image URL or null if not found
  */
@@ -45,7 +44,6 @@ async function extractArtistBanner(artistUrl) {
   const artistIdMatch = artistUrl.match(/artist\/([a-zA-Z0-9]+)/);
   const artistId = artistIdMatch ? artistIdMatch[1] : null;
   
-  // Get browserless token from environment variable
   const browserlessToken = process.env.BROWSERLESS_TOKEN;
   
   if (!browserlessToken) {
@@ -55,7 +53,6 @@ async function extractArtistBanner(artistUrl) {
   
   let browser;
   try {
-    // Connect to Browserless instead of launching local browser
     browser = await puppeteer.connect({
       browserWSEndpoint: `wss://chrome.browserless.io?token=${browserlessToken}`
     });
