@@ -1,4 +1,4 @@
-# 🎵 SpotifyBanner
+# spotifybanner.com
 
 ![SpotifyBanner Logo](https://example.com/your-logo.png)
 
