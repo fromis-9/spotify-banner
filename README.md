@@ -4,7 +4,7 @@
 
 **spotifybanner.com** is a simple, fast web application that extracts high-quality banner images from Spotify artist pages with a single click.
 
-## 🔍 Why spotifybanner.com?
+## Why spotifybanner.com?
 
 Finding high-resolution artist banners from Spotify can be time-consuming and technical, often requiring you to inspect page elements or use developer tools. spotifybanner.com makes this process effortless:
 
@@ -12,14 +12,14 @@ Finding high-resolution artist banners from Spotify can be time-consuming and te
 2. Click "Extract Banner"
 3. Download the high-quality banner image
 
-## ✨ Features
+## Features
 
 - **High-Quality Images**: Extracts the largest, highest resolution banner available
 - **Fast Processing**: Banner extraction takes just seconds
 - **Direct Download**: Save images with a single click
 - **Mobile-Friendly**: Works on all devices, from desktop to mobile
 
-## 🖼️ Examples
+## Examples
 
 Here are some examples of banners extracted using SpotifyBanner:
 
@@ -29,7 +29,7 @@ Here are some examples of banners extracted using SpotifyBanner:
 | Taylor Swift | [Example Banner](https://link-to-example-image.jpg) |
 | The Weeknd | [Example Banner](https://link-to-example-image.jpg) |
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Using the Live Site
 
@@ -75,24 +75,24 @@ If you want to run SpotifyBanner on your local machine:
 
 5. Open your browser to `http://localhost:3000`
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Frontend**: React, CSS
 - **Backend**: Node.js, Express
 - **Data extraction**: Puppeteer and Browserless.io
 - **Deployment**: Render (frontend and backend)
 
-## 📝 Usage Notes
+## Usage Notes
 
 - This tool is designed for personal use
 - Please respect Spotify's terms of service
 - Banner images are copyright of the respective artists and labels
 
-## 👨‍💻 Development
+## Development
 
 spotifybanner.com was created because there was no easy way to extract these banner images without using browser developer tools. It's built to be simple, focused, and useful.
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
