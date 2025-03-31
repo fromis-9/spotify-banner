@@ -50,7 +50,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1 class="green">spotify</h1><h1 class="white">banner</h1>
-        <p className="subtitle">get an artist's spotify banner</p>
+        <p className="subtitle">get an artist's spotify banner/header image</p>
       </header>
       
       <main className="app-content">
