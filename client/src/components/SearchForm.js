@@ -14,60 +14,51 @@ function SearchForm({ onSubmit, isLoading }) {
   };
   
   return (
-    <div className="search-form-container">
-      <form onSubmit={handleSubmit} className="search-form">
-        <div className="form-group">
-          <label htmlFor="artistUrl">spotify artist url</label>
-          <input
-            type="text"
-            id="artistUrl"
-            value={artistUrl}
-            onChange={(e) => setArtistUrl(e.target.value)}
-            placeholder="https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG"
+    <form onSubmit={handleSubmit} className="search-form">
+      <div className="form-section">
+        <label htmlFor="artistUrl" className="form-label">Spotify Artist URL</label>
+        <input
+          type="text"
+          id="artistUrl"
+          className="url-input"
+          value={artistUrl}
+          onChange={(e) => setArtistUrl(e.target.value)}
+          placeholder="https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG"
+          disabled={isLoading}
+          required
+        />
+      </div>
+      
+      <div className="form-section">
+        <label className="form-label">Device Type</label>
+        <div className="device-selector">
+          <button
+            type="button"
+            className={`device-toggle ${deviceType === 'desktop' ? 'active' : ''}`}
+            onClick={() => setDeviceType('desktop')}
             disabled={isLoading}
-            required
-          />
-          <small className="form-help">
-            example (Olivia Rodrigo): https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG
-          </small>
+          >
+            🖥️ Desktop
+          </button>
+          <button
+            type="button"
+            className={`device-toggle ${deviceType === 'mobile' ? 'active' : ''}`}
+            onClick={() => setDeviceType('mobile')}
+            disabled={isLoading}
+          >
+            📱 Mobile
+          </button>
         </div>
-        
-        <div className="form-group">
-          <label>device type</label>
-          <div className="device-toggle">
-            <button
-              type="button"
-              className={`toggle-option ${deviceType === 'desktop' ? 'active' : ''}`}
-              onClick={() => setDeviceType('desktop')}
-              disabled={isLoading}
-            >
-              <span className="toggle-icon">🖥️</span>
-              <span className="toggle-label">Desktop</span>
-            </button>
-            <button
-              type="button"
-              className={`toggle-option ${deviceType === 'mobile' ? 'active' : ''}`}
-              onClick={() => setDeviceType('mobile')}
-              disabled={isLoading}
-            >
-              <span className="toggle-icon">📱</span>
-              <span className="toggle-label">Mobile</span>
-            </button>
-          </div>
-          <small className="form-help">
-            Some artists have different banners for mobile vs desktop
-          </small>
-        </div>
-        
-        <button 
-          type="submit" 
-          className="submit-button"
-          disabled={isLoading || !artistUrl.trim()}
-        >
-          {isLoading ? 'extracting...' : 'extract banner'}
-        </button>
-      </form>
-    </div>
+      </div>
+      
+      <button 
+        type="submit" 
+        className="submit-btn"
+        disabled={isLoading || !artistUrl.trim()}
+      >
+        {isLoading ? 'Extracting...' : 'Extract Banner'}
+      </button>
+    </form>
   );
 }
 

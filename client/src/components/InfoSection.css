@@ -1,45 +1,54 @@
 .info-section {
-  max-width: 800px;
-  margin: 80px auto 0;
-  padding: 0 16px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .info-section h2 {
-  text-align: center;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 32px;
   letter-spacing: -0.025em;
 }
 
 .info-content {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 40px;
-  backdrop-filter: blur(20px);
-  position: relative;
-  overflow: hidden;
-}
-
-.info-content::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
 .info-content p {
-  font-size: 1.125rem;
-  line-height: 1.7;
-  color: #d1d5db;
-  margin: 0;
-  font-weight: 400;
-  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.info-content p:last-child {
+  margin-bottom: 0;
+}
+
+.info-content ul {
+  margin: 12px 0;
+  padding-left: 16px;
+}
+
+.info-content li {
+  margin: 6px 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.info-content code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {

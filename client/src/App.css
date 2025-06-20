@@ -38,14 +38,14 @@ body {
 
 .app-header {
   text-align: center;
-  padding: 80px 20px 60px;
+  padding: 40px 20px 30px;
   position: relative;
   z-index: 1;
 }
 
 .app-header h1 {  
   margin: 0;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   font-style: normal;
@@ -60,7 +60,7 @@ body {
 .green {
   color: #088233;
   display: inline;
-  text-shadow: 0 0 30px rgba(8, 130, 51, 0.5);
+  text-shadow: 0 0 20px rgba(8, 130, 51, 0.5);
 }
 
 .title {
@@ -72,20 +72,20 @@ body {
 }
 
 .subtitle {
-  margin-top: 16px;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  margin-top: 8px;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   font-weight: 400;
   opacity: 0.7;
   letter-spacing: 0.01em;
-  max-width: 600px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .app-content {
   flex: 1;
-  padding: 0 20px 60px;
-  max-width: 1200px;
+  padding: 0 20px 40px;
+  max-width: 1000px;
   margin: 0 auto;
   width: 100%;
   position: relative;
@@ -93,33 +93,34 @@ body {
 }
 
 .error-message {
-  margin: 24px 0;
-  padding: 20px 24px;
+  margin: 16px 0;
+  padding: 16px 20px;
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
   backdrop-filter: blur(10px);
   font-weight: 500;
   color: #fca5a5;
+  font-size: 0.875rem;
 }
 
 .loading-indicator {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 60px 0;
+  margin: 40px 0;
 }
 
 .app-footer {
-  padding: 40px 20px;
+  padding: 24px 20px;
   text-align: center;
   color: #6b7280;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 400;
   position: relative;
   z-index: 1;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: 80px;
+  margin-top: 40px;
 }
 
 .app-footer a {
@@ -136,15 +137,15 @@ body {
 /* Media Queries */
 @media (max-width: 768px) {
   .app-header {
-    padding: 60px 20px 40px;
+    padding: 30px 16px 20px;
   }
   
   .app-content {
-    padding: 0 16px 40px;
+    padding: 0 16px 30px;
   }
   
   .app-footer {
-    padding: 32px 16px;
-    margin-top: 60px;
+    padding: 20px 16px;
+    margin-top: 30px;
   }
 }

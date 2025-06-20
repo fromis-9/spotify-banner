@@ -4,7 +4,7 @@ import config from '../config';
 import './BannerDisplay.css';
 
 function BannerDisplay({ data }) {
-  const { artistUrl, bannerUrl, imagePath, artistId } = data;
+  const { artistUrl, bannerUrl, imagePath, artistId, deviceType } = data;
   
   const imageUrl = `${config.apiUrl}${imagePath}`;
   
@@ -12,7 +12,7 @@ function BannerDisplay({ data }) {
     // create a temporary link element
     const link = document.createElement('a');
     link.href = imageUrl;
-    link.download = `spotify-banner-${artistId}.jpg`;
+    link.download = `spotify-banner-${artistId}-${deviceType || 'banner'}.jpg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -20,49 +20,40 @@ function BannerDisplay({ data }) {
   
   return (
     <div className="banner-display">
-      <h2>banner extracted successfully!</h2>
-      
-      <div className="banner-image-container">
-        <img 
-          src={imageUrl}
-          alt="Artist Banner" 
-          className="banner-image"
-        />
-      </div>
-      
-      <div className="banner-info">
-        <div className="info-item">
-          <strong>artist url:</strong>
-          <a 
-            href={artistUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="info-link"
-          >
-            {artistUrl}
-          </a>
+      <div className="banner-container">
+        <div className="banner-info">
+          <h3>Banner Extracted Successfully!</h3>
+          
+          {deviceType && (
+            <div className="info-row">
+              <span className="info-label">Device Type:</span>
+              <span className="device-indicator">
+                {deviceType === 'mobile' ? '📱' : '🖥️'} {deviceType}
+              </span>
+            </div>
+          )}
+          
+          <div className="info-row">
+            <span className="info-label">Artist ID:</span>
+            <span className="info-value">{artistId}</span>
+          </div>
+          
+          <div className="info-row">
+            <span className="info-label">Actions:</span>
+            <button 
+              onClick={handleDownload}
+              className="download-btn"
+            >
+              ⬇️ Download
+            </button>
+          </div>
         </div>
         
-        <div className="info-item">
-          <strong>original banner url:</strong>
-          <a 
-            href={bannerUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="info-link"
-          >
-            view original
-          </a>
-        </div>
-      </div>
-      
-      <div className="banner-actions">
-        <button 
-          onClick={handleDownload}
-          className="download-button"
-        >
-          download banner
-        </button>
+        <img 
+          src={imageUrl}
+          alt={`Artist Banner - ${deviceType || 'Default'}`}
+          className="banner-image"
+        />
       </div>
     </div>
   );
