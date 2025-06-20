@@ -21,11 +21,11 @@ Finding high-resolution artist banners from Spotify can be time-consuming and te
 
 Here are some examples of banners extracted using SpotifyBanner:
 
-| Artist | Banner |
-|--------|--------|
-| Olivia Rodrigo | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194b9e08cd875ff2a0f8ad0c334)) |
-| Taylor Swift | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194632d765bdc111e40acbfab19)) |
-| The Weeknd | [Example Banner]([https://link-to-example-image.jpg](https://image-cdn-fa.spotifycdn.com/image/ab6761860000019406f7730314d8eff6663d6918)) |
+| Artist         | Banner |
+|----------------|--------|
+| Olivia Rodrigo | ![Olivia Rodrigo](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194b9e08cd875ff2a0f8ad0c334) |
+| Taylor Swift   | ![Taylor Swift](https://image-cdn-ak.spotifycdn.com/image/ab67618600000194632d765bdc111e40acbfab19) |
+| The Weeknd     | ![The Weeknd](https://image-cdn-fa.spotifycdn.com/image/ab6761860000019406f7730314d8eff6663d6918) |
 
 ## Getting Started
 
@@ -92,7 +92,7 @@ spotifybanner.com was created because there was no easy way to extract these ban
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPLv3 License - see the [LICENSE](LICENSE) file for details.
 
 Not affiliated with Spotify
 
