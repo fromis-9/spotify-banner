@@ -95,43 +95,24 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
         return match ? match[1] : null;
       }
       
-      // Mobile-specific logic - try to get high quality images first
+      // Mobile-specific logic
       if (deviceType === 'mobile') {
         const allImages = Array.from(document.querySelectorAll('img'));
-        
-        // Strategy 1: Look for high-quality mobile images first
-        const highQualityMobile = allImages.filter(img => 
+        const mobileImages = allImages.filter(img => 
           img.src && (
-            img.src.includes('ab67618600000194') || // High-res banner format (1080x1080)
-            img.src.includes('image-cdn-ak.spotifycdn.com') ||
-            img.src.includes('image-cdn-fa.spotifycdn.com')
+            img.src.includes('ab67616100005174') || // Mobile square format
+            img.src.includes('i.scdn.co') // Mobile CDN
           )
         );
         
-        if (highQualityMobile.length > 0) {
-          const sortedHQ = highQualityMobile.sort((a, b) => {
+        if (mobileImages.length > 0) {
+          // Sort by size and return largest mobile image
+          const sortedMobile = mobileImages.sort((a, b) => {
             const rectA = a.getBoundingClientRect();
             const rectB = b.getBoundingClientRect();
             return (rectB.width * rectB.height) - (rectA.width * rectA.height);
           });
-          return sortedHQ[0].src;
-        }
-        
-        // Strategy 2: Fallback to medium quality mobile images
-        const mediumQualityMobile = allImages.filter(img => 
-          img.src && (
-            img.src.includes('ab67616100005174') || // Mobile square format (640x640)
-            img.src.includes('i.scdn.co')
-          )
-        );
-        
-        if (mediumQualityMobile.length > 0) {
-          const sortedMQ = mediumQualityMobile.sort((a, b) => {
-            const rectA = a.getBoundingClientRect();
-            const rectB = b.getBoundingClientRect();
-            return (rectB.width * rectB.height) - (rectA.width * rectA.height);
-          });
-          return sortedMQ[0].src;
+          return sortedMobile[0].src;
         }
       }
       

@@ -36,6 +36,38 @@ body {
   z-index: 0;
 }
 
+.github-link {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.github-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.github-icon {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .app-header {
   text-align: center;
   padding: 40px 20px 30px;
@@ -136,6 +168,18 @@ body {
 
 /* Media Queries */
 @media (max-width: 768px) {
+  .github-link {
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+  }
+  
+  .github-icon {
+    font-size: 18px;
+  }
+  
   .app-header {
     padding: 30px 16px 20px;
   }

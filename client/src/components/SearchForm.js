@@ -38,7 +38,7 @@ function SearchForm({ onSubmit, isLoading }) {
             onClick={() => setDeviceType('desktop')}
             disabled={isLoading}
           >
-            Desktop
+            <span className="device-icon">⌐</span> Desktop
           </button>
           <button
             type="button"
@@ -46,7 +46,7 @@ function SearchForm({ onSubmit, isLoading }) {
             onClick={() => setDeviceType('mobile')}
             disabled={isLoading}
           >
-            Mobile
+            <span className="device-icon">⌖</span> Mobile
           </button>
         </div>
       </div>

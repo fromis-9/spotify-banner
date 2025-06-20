@@ -76,6 +76,14 @@
   transition: all 0.2s ease;
   text-align: center;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.device-icon {
+  font-size: 0.9rem;
 }
 
 .device-toggle:hover {

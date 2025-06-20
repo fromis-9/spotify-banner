@@ -48,6 +48,16 @@ function App() {
   
   return (
     <div className="app">
+      <a 
+        href="https://github.com/fromis-9/spotify-banner" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="github-link"
+        title="View on GitHub"
+      >
+        <span className="github-icon">⚡</span>
+      </a>
+      
       <header className="app-header">
         <h1 className="green">spotify</h1><h1 className="white">banner</h1><h3 className="title">.com</h3>
         <p className="subtitle">get an artist's spotify banner/header image</p>
