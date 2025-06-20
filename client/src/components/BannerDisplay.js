@@ -28,7 +28,7 @@ function BannerDisplay({ data }) {
             <div className="info-row">
               <span className="info-label">Device Type:</span>
               <span className="device-indicator">
-                {deviceType === 'mobile' ? '📱' : '🖥️'} {deviceType}
+                {deviceType}
               </span>
             </div>
           )}
@@ -44,7 +44,7 @@ function BannerDisplay({ data }) {
               onClick={handleDownload}
               className="download-btn"
             >
-              ⬇️ Download
+              Download
             </button>
           </div>
         </div>
