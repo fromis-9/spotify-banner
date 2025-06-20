@@ -24,7 +24,7 @@ app.get('/api/health', (req, res) => {
 // API endpoint to handle banner extraction with rate limiting
 app.post('/api/extractbanner', async (req, res) => {
   try {
-    const { artistUrl } = req.body;
+    const { artistUrl, deviceType = 'desktop' } = req.body;
     
     // checking if URL was provided
     if (!artistUrl) {
@@ -34,12 +34,12 @@ app.post('/api/extractbanner', async (req, res) => {
       });
     }
     
-    console.log(`Processing request for artist URL: ${artistUrl}`);
+    console.log(`Processing request for artist URL: ${artistUrl} (${deviceType})`);
     
     // promise that will be resolved when this request is processed
     const requestPromise = new Promise((resolve) => {
       requestQueue.push(() => {
-        processArtistUrl(artistUrl)
+        processArtistUrl(artistUrl, deviceType)
           .then(result => resolve(result))
           .catch(error => resolve({ 
             success: false, 

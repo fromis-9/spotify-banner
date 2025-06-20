@@ -4,11 +4,12 @@ import './SearchForm.css';
 
 function SearchForm({ onSubmit, isLoading }) {
   const [artistUrl, setArtistUrl] = useState('');
+  const [deviceType, setDeviceType] = useState('desktop');
   
   const handleSubmit = (e) => {
     e.preventDefault();
     if (artistUrl.trim()) {
-      onSubmit(artistUrl);
+      onSubmit(artistUrl, deviceType);
     }
   };
   
@@ -28,6 +29,33 @@ function SearchForm({ onSubmit, isLoading }) {
           />
           <small className="form-help">
             example (Olivia Rodrigo): https://open.spotify.com/artist/1McMsnEElThX1knmY4oliG
+          </small>
+        </div>
+        
+        <div className="form-group">
+          <label>device type</label>
+          <div className="device-toggle">
+            <button
+              type="button"
+              className={`toggle-option ${deviceType === 'desktop' ? 'active' : ''}`}
+              onClick={() => setDeviceType('desktop')}
+              disabled={isLoading}
+            >
+              <span className="toggle-icon">🖥️</span>
+              <span className="toggle-label">Desktop</span>
+            </button>
+            <button
+              type="button"
+              className={`toggle-option ${deviceType === 'mobile' ? 'active' : ''}`}
+              onClick={() => setDeviceType('mobile')}
+              disabled={isLoading}
+            >
+              <span className="toggle-icon">📱</span>
+              <span className="toggle-label">Mobile</span>
+            </button>
+          </div>
+          <small className="form-help">
+            Some artists have different banners for mobile vs desktop
           </small>
         </div>
         

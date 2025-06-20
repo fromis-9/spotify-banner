@@ -13,7 +13,7 @@ function App() {
   const [error, setError] = useState(null);
   
   // Function to handle the API request to extract banner
-  const handleExtractBanner = async (artistUrl) => {
+  const handleExtractBanner = async (artistUrl, deviceType = 'desktop') => {
     // Reset states
     setIsLoading(true);
     setError(null);
@@ -26,7 +26,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ artistUrl }),
+        body: JSON.stringify({ artistUrl, deviceType }),
       });
       
       // Parse the response
@@ -49,7 +49,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 class="green">spotify</h1><h1 class="white">banner</h1><h3 class="title">.com</h3>
+        <h1 className="green">spotify</h1><h1 className="white">banner</h1><h3 className="title">.com</h3>
         <p className="subtitle">get an artist's spotify banner/header image</p>
       </header>
       

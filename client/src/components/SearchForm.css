@@ -1,216 +1,238 @@
-/* client/src/components/SearchForm.css */
 .search-form-container {
-    background-color: #282828;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 30px;
+  max-width: 680px;
+  margin: 0 auto 80px;
+  padding: 0 16px;
+}
+
+.search-form {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.search-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #d1d5db;
+  margin-bottom: 12px;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  font-family: inherit;
+  margin-bottom: 16px;
+}
+
+.form-group input::placeholder {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.form-group input:focus {
+  border-color: rgba(8, 130, 51, 0.6);
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 
+    0 0 0 3px rgba(8, 130, 51, 0.1),
+    0 8px 32px rgba(8, 130, 51, 0.15);
+  transform: translateY(-1px);
+}
+
+.form-group input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.device-toggle {
+  display: flex;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 4px;
+  margin-bottom: 16px;
+  gap: 4px;
+}
+
+.toggle-option {
+  flex: 1;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+}
+
+.toggle-option.active {
+  background: #1a1a1a;
+  border: 1px solid transparent;
+  background-image: linear-gradient(135deg, #088233 0%, #0a9b3d 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-image: linear-gradient(135deg, #088233 0%, #0a9b3d 100%) 1;
+  color: #ffffff;
+  box-shadow: 
+    0 0 0 1px transparent,
+    inset 0 0 0 1px rgba(8, 130, 51, 0.3),
+    0 4px 16px rgba(8, 130, 51, 0.2);
+}
+
+.toggle-option.active::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  padding: 1px;
+  background: linear-gradient(135deg, #088233 0%, #0a9b3d 100%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  pointer-events: none;
+}
+
+.toggle-option:not(.active):hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(8, 130, 51, 0.3);
+  color: #d1d5db;
+}
+
+.toggle-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle-icon {
+  font-size: 1.1em;
+}
+
+.toggle-label {
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.form-help {
+  font-size: 0.8125rem;
+  color: #9ca3af;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 8px;
+  display: block;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #088233 0%, #0a9b3d 100%);
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  text-transform: lowercase;
+  letter-spacing: 0.025em;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.submit-button:hover::before {
+  left: 100%;
+}
+
+.submit-button:hover {
+  background: linear-gradient(135deg, #0a9b3d 0%, #0db847 100%);
+  box-shadow: 
+    0 8px 32px rgba(8, 130, 51, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit-button:disabled:hover {
+  background: linear-gradient(135deg, #088233 0%, #0a9b3d 100%);
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .search-form-container {
+    margin-bottom: 60px;
   }
   
   .search-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px; 
-    font-weight: 500;
+    padding: 32px 24px;
+    border-radius: 20px;
   }
   
   .form-group input {
-    width: 100%;
-    padding: 12px 1px;
-    border: none;
-    border-radius: 10px;
-    background-color: #3E3E3E;
-    color: white;
+    padding: 14px 16px;
     font-size: 1rem;
-  }
-  
-  .form-group input:focus {
-    outline: none;
-  }
-  
-  .form-help {
-    display: block;
-    margin-top: 6px;
-    color: #b3b3b3;
-    font-size: 0.85rem;
   }
   
   .submit-button {
-    background-color: #088233;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    align-self: center;
+    padding: 16px 24px;
+    margin-top: 20px;
   }
-  
-  .submit-button:hover:not(:disabled) {
-    background-color: #088233;
-  }
-  
-  .submit-button:disabled {
-    opacity: 0.7;
-  }
-  
-  @media (max-width: 600px) {
-    .search-form-container {
-      padding: 15px;
-    }
-    
-    .submit-button {
-      width: 100%;
-    }
-  }
-  
-  /* client/src/components/BannerDisplay.css */
-  .banner-display {
-    background-color: #282828;
-    border-radius: 10px;
-    padding: 25px;
-    margin: 30px 0;
-  }
-  
-  .banner-display h2 {
-    color: #088233;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  
-  .banner-image-container {
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .banner-image {
-    width: 100%;
-    display: block;
-  }
-  
-  .banner-info {
-    margin: 20px 0;
-  }
-  
-  .info-item {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .info-item strong {
-    margin-bottom: 5px;
-  }
-  
-  .info-link {
-    color: #088233;
-    text-decoration: none;
-    word-break: break-all;
-  }
-  
-  .info-link:hover {
-    text-decoration: underline;
-  }
-  
-  .banner-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 25px;
-  }
-  
-  .download-button {
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .download-button:hover {
-    background-color: #444;
-  }
-  
-  @media (max-width: 600px) {
-    .banner-display {
-      padding: 15px;
-    }
-  }
-  
-  /* client/src/components/InfoSection.css */
-  .info-section {
-    background-color: #282828;
-    border-radius: 10px;
-    padding: 25px;
-    margin: 30px 0;
-  }
-  
-  .info-section h2 {
-    color: #088233;
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .info-content {
-    color: #e0e0e0;
-  }
-  
-  .process-steps {
-    margin: 25px 0;
-    padding-left: 20px;
-  }
-  
-  .process-steps li {
-    margin-bottom: 15px;
-  }
-  
-  .process-steps strong {
-    color: #088233;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .process-steps p {
-    margin: 0;
-    color: #b3b3b3;
-  }
-  
-  .technical-info {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #3e3e3e;
-  }
-  
-  .technical-info h3 {
-    color: #088233;
-    margin-bottom: 15px;
-  }
-  
-  .technical-info ul {
-    padding-left: 20px;
-  }
-  
-  .technical-info li {
-    margin-bottom: 8px;
-    color: #b3b3b3;
-  }
-
-  @media (max-width: 600px) {
-    .info-section {
-      padding: 15px;
-    }
-  }
+}
