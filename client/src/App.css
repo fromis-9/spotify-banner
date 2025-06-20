@@ -64,8 +64,9 @@ body {
 }
 
 .github-icon {
-  font-size: 20px;
-  font-weight: 500;
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease;
 }
 
 .app-header {
@@ -177,7 +178,8 @@ body {
   }
   
   .github-icon {
-    font-size: 18px;
+    width: 18px;
+    height: 18px;
   }
   
   .app-header {
