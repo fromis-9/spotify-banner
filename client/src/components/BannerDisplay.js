@@ -30,12 +30,12 @@ function BannerDisplay({ data }) {
     } catch (error) {
       console.error('Download failed:', error);
       // Fallback to simple link download
-      const link = document.createElement('a');
-      link.href = imageUrl;
+    const link = document.createElement('a');
+    link.href = imageUrl;
       link.download = `spotify-banner-${artistId}-${deviceType || 'banner'}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     }
   };
   

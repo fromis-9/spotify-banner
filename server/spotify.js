@@ -74,7 +74,7 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
       await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1');
       await page.setViewport({ width: 375, height: 812 });
     } else {
-      await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121.0.0.0 Safari/537.36');
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/121.0.0.0 Safari/537.36');
       await page.setViewport({ width: 1920, height: 1080 });
     }
     
@@ -198,8 +198,8 @@ async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
     if (browserlessToken) {
       console.log('Using Browserless.io for image download');
       browser = await puppeteer.connect({
-        browserWSEndpoint: `wss://chrome.browserless.io?token=${browserlessToken}`
-      });
+      browserWSEndpoint: `wss://chrome.browserless.io?token=${browserlessToken}`
+    });
     } else {
       console.log('Using local Puppeteer for image download');
       browser = await puppeteer.launch({

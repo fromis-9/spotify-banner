@@ -78,8 +78,9 @@ body {
 
 .app-header h1 {  
   margin: 0;
+  font-family: 'PT Serif', serif;
   font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   font-style: normal;
   line-height: 0.9;
