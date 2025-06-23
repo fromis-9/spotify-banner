@@ -4,6 +4,7 @@ import './App.css';
 import SearchForm from './components/SearchForm';
 import BannerDisplay from './components/BannerDisplay';
 import InfoSection from './components/InfoSection';
+import Legal from './components/Legal';
 import config from './config';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [bannerData, setBannerData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showLegal, setShowLegal] = useState(false);
   
   // Function to handle the API request to extract banner
   const handleExtractBanner = async (artistUrl, deviceType = 'desktop') => {
@@ -46,6 +48,10 @@ function App() {
     }
   };
   
+  if (showLegal) {
+    return <Legal onBack={() => setShowLegal(false)} />;
+  }
+
   return (
     <div className="app">
       <a 
@@ -84,7 +90,7 @@ function App() {
       
       <footer className="app-footer">
         <p>
-          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">corinthians</a>
+          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">corinthians</a> | <button className="legal-link" onClick={() => setShowLegal(true)}>legal</button>
         </p>
       </footer>
     </div>
