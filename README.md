@@ -39,8 +39,8 @@ If you want to run spotifybanner on your local machine:
 
 1. Clone the repository
    ```
-   git clone https://github.com/your-username/spotifybanner.git
-   cd spotifybanner
+   git clone https://github.com/fromis-9/spotify-banner.git
+   cd spotify-banner
    ```
 
 2. Install dependencies
@@ -85,6 +85,7 @@ If you want to run spotifybanner on your local machine:
 - This tool is designed for personal use
 - Please respect Spotify's terms of service
 - Banner images are copyright of the respective artists and labels
+- See the legal page on the site for full terms and disclaimers
 
 ## Development
 
