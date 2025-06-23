@@ -65,7 +65,7 @@ function BannerDisplay({ data }) {
               onClick={handleDownload}
               className="download-btn"
             >
-              ↓ Download
+              ↓ download
             </button>
           </div>
         </div>

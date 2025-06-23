@@ -16,7 +16,7 @@ function SearchForm({ onSubmit, isLoading }) {
   return (
     <form onSubmit={handleSubmit} className="search-form">
       <div className="form-section">
-        <label htmlFor="artistUrl" className="form-label">Spotify Artist URL</label>
+        <label htmlFor="artistUrl" className="form-label">spotify artist url</label>
         <input
           type="text"
           id="artistUrl"
@@ -30,7 +30,7 @@ function SearchForm({ onSubmit, isLoading }) {
       </div>
       
       <div className="form-section">
-        <label className="form-label">Device Type</label>
+        <label className="form-label">device type</label>
         <div className="device-selector">
           <button
             type="button"
@@ -38,7 +38,7 @@ function SearchForm({ onSubmit, isLoading }) {
             onClick={() => setDeviceType('desktop')}
             disabled={isLoading}
           >
-            Desktop
+            desktop
           </button>
           <button
             type="button"
@@ -46,7 +46,7 @@ function SearchForm({ onSubmit, isLoading }) {
             onClick={() => setDeviceType('mobile')}
             disabled={isLoading}
           >
-            Mobile
+            mobile
           </button>
         </div>
       </div>
@@ -56,7 +56,7 @@ function SearchForm({ onSubmit, isLoading }) {
         className="submit-btn"
         disabled={isLoading || !artistUrl.trim()}
       >
-        {isLoading ? 'Extracting...' : 'Extract Banner'}
+        {isLoading ? 'extracting...' : 'extract banner'}
       </button>
     </form>
   );

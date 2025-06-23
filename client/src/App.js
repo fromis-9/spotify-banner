@@ -42,7 +42,7 @@ function App() {
       setBannerData(result.data);
     } catch (err) {
       console.error('Error extracting banner:', err);
-      setError(err.message || 'Failed to extract banner');
+      setError(err.message || 'failed to extract banner');
     } finally {
       setIsLoading(false);
     }
