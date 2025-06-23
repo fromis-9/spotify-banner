@@ -84,7 +84,7 @@ function App() {
       
       <footer className="app-footer">
         <p>
-          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">fromis-9</a>
+          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">corinthians</a>
         </p>
       </footer>
     </div>
