@@ -31,7 +31,7 @@ function InfoSection() {
           <li>paste the url into the form above</li>
         </ul>
         <p>
-          accepted url formats: <code>open.spotify.com/artist/...</code> or <code>spotify:artist:...</code>
+          accepted url formats: <code>open.spotify.com/artist/...</code>, <code>open.spotify.com/intl-xx/artist/...</code>, or <code>spotify:artist:...</code>
         </p>
       </div>
     </div>

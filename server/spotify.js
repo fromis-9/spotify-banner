@@ -16,13 +16,63 @@ async function ensureImagesDir() {
 }
 
 /**
- * Extracts artist ID from the Spotify URL
+ * Normalizes Spotify artist URLs to a canonical web form
+ * Supports inputs like:
+ * - https://open.spotify.com/intl-es/artist/{id}
+ * - https://open.spotify.com/artist/{id}
+ * - spotify:artist:{id}
+ * Returns: https://open.spotify.com/artist/{id}
+ */
+function normalizeArtistUrl(artistUrl) {
+  try {
+    if (!artistUrl) return '';
+
+    const trimmed = String(artistUrl).trim();
+
+    // Handle spotify:artist:{id}
+    const uriMatch = trimmed.match(/^spotify:artist:([a-zA-Z0-9]+)$/);
+    if (uriMatch) {
+      return `https://open.spotify.com/artist/${uriMatch[1]}`;
+    }
+
+    // Attempt to parse as URL
+    let url;
+    try {
+      url = new URL(trimmed);
+    } catch (_) {
+      // If it lacks protocol, try adding https://
+      try {
+        url = new URL(`https://${trimmed}`);
+      } catch (__) {
+        return '';
+      }
+    }
+
+    if (!url.hostname.endsWith('spotify.com')) return '';
+
+    // Remove any locale segment like /intl-es/ or /intl-en/
+    const cleanedPath = url.pathname.replace(/^\/intl-[a-zA-Z-]+\//, '/');
+
+    // Expect /artist/{id}
+    const match = cleanedPath.match(/\/artist\/([a-zA-Z0-9]+)/);
+    if (!match) return '';
+
+    const artistId = match[1];
+    return `https://open.spotify.com/artist/${artistId}`;
+  } catch (err) {
+    return '';
+  }
+}
+
+/**
+ * Extracts artist ID from the Spotify URL (normalized or raw)
  * @param {string} artistUrl - The Spotify artist URL
  * @returns {string} - The artist ID or a fallback
  */
 function extractArtistId(artistUrl) {
   try {
-    const urlParts = artistUrl.split('/');
+    const normalized = normalizeArtistUrl(artistUrl) || artistUrl;
+    const urlParts = normalized.split('/');
     let artistId = urlParts[urlParts.length - 1];
     artistId = artistId.split('?')[0];
     return artistId;
@@ -40,7 +90,8 @@ function extractArtistId(artistUrl) {
  * @returns {Promise<string|null>} - The banner image URL or null if not found
  */
 async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
-  console.log(`Starting extraction for: ${artistUrl} (${deviceType} version)`);
+  const normalizedUrl = normalizeArtistUrl(artistUrl);
+  console.log(`Starting extraction for: ${normalizedUrl || artistUrl} (${deviceType} version)`);
   
   const artistIdMatch = artistUrl.match(/artist\/([a-zA-Z0-9]+)/);
   const artistId = artistIdMatch ? artistIdMatch[1] : null;
@@ -79,7 +130,7 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
     }
     
     console.log('Navigating to artist page...');
-    await page.goto(artistUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+    await page.goto(normalizedUrl || artistUrl, { waitUntil: 'networkidle2', timeout: 30000 });
     
     // Wait for content to load
     await page.waitForFunction(() => document.readyState === 'complete');
@@ -238,7 +289,8 @@ async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
 
 async function processArtistUrl(artistUrl, deviceType = 'desktop') {
   try {
-    if (!artistUrl || !artistUrl.includes("open.spotify.com/artist")) {
+    const normalizedUrl = normalizeArtistUrl(artistUrl);
+    if (!normalizedUrl) {
       return {
         success: false,
         error: "Invalid Spotify artist URL"
@@ -246,7 +298,7 @@ async function processArtistUrl(artistUrl, deviceType = 'desktop') {
     }
 
     // Extract the banner URL
-    const bannerUrl = await extractArtistBanner(artistUrl, deviceType);
+    const bannerUrl = await extractArtistBanner(normalizedUrl, deviceType);
     if (!bannerUrl) {
       return {
         success: false,
@@ -255,7 +307,7 @@ async function processArtistUrl(artistUrl, deviceType = 'desktop') {
     }
 
     // Extract artist ID from URL for filename
-    const artistId = extractArtistId(artistUrl);
+    const artistId = extractArtistId(normalizedUrl);
 
     // Download the banner image
     const filename = await downloadBannerImage(bannerUrl, artistId, deviceType);
@@ -269,7 +321,7 @@ async function processArtistUrl(artistUrl, deviceType = 'desktop') {
     return {
       success: true,
       data: {
-        artistUrl,
+        artistUrl: normalizedUrl,
         bannerUrl,
         imagePath: `/images/${filename}`,
         artistId,
