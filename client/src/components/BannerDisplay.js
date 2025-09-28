@@ -43,22 +43,22 @@ function BannerDisplay({ data }) {
     <div className="banner-display">
       <div className="banner-container">
         <div className="banner-info">
-          <h3>Banner Extracted Successfully!</h3>
+          <h3>banner extracted successfully</h3>
           
           {deviceType && (
             <div className="info-row">
-              <span className="info-label">Device Type:</span>
+              <span className="info-label">device type:</span>
               <span className="device-indicator">{deviceType}</span>
             </div>
           )}
           
           <div className="info-row">
-            <span className="info-label">Artist ID:</span>
+            <span className="info-label">artist id:</span>
             <span className="info-value">{artistId}</span>
           </div>
           
           <div className="info-row">
-            <span className="info-label">Actions:</span>
+            <span className="info-label">actions:</span>
             <button 
               onClick={handleDownload}
               className="download-btn"
@@ -70,7 +70,7 @@ function BannerDisplay({ data }) {
         
         <img 
           src={imageUrl}
-          alt={`Artist Banner - ${deviceType || 'Default'}`}
+          alt={`artist banner - ${deviceType || 'default'}`}
           className="banner-image"
         />
       </div>

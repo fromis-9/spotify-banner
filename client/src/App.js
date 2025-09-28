@@ -79,7 +79,7 @@ function App() {
         
         {error && (
           <div className="error-message">
-            <p>{error}</p>
+            <p>{(error || '').toLowerCase()}</p>
           </div>
         )}
         
