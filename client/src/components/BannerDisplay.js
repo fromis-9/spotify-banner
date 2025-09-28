@@ -4,7 +4,7 @@ import config from '../config';
 import './BannerDisplay.css';
 
 function BannerDisplay({ data }) {
-  const { artistUrl, bannerUrl, imagePath, artistId, deviceType } = data;
+  const { imagePath, artistId, deviceType } = data;
   
   const imageUrl = `${config.apiUrl}${imagePath}`;
   
