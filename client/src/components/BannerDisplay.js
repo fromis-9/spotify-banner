@@ -48,9 +48,7 @@ function BannerDisplay({ data }) {
           {deviceType && (
             <div className="info-row">
               <span className="info-label">Device Type:</span>
-              <span className="device-indicator">
-                {deviceType === 'mobile' ? '⌖' : '⌐'} {deviceType}
-              </span>
+              <span className="device-indicator">{deviceType}</span>
             </div>
           )}
           
@@ -64,8 +62,8 @@ function BannerDisplay({ data }) {
             <button 
               onClick={handleDownload}
               className="download-btn"
-            >
-              ↓ download
+              >
+              download
             </button>
           </div>
         </div>
