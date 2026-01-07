@@ -7,6 +7,10 @@ function BannerDisplay({ data }) {
   const { imagePath, artistId, deviceType } = data;
   
   const imageUrl = `${config.apiUrl}${imagePath}`;
+  const extension = (imagePath && imagePath.includes('.'))
+    ? imagePath.split('.').pop()
+    : 'jpg';
+  const downloadName = `spotify-banner-${artistId}-${deviceType || 'banner'}.${extension}`;
   
   const handleDownload = async () => {
     try {
@@ -20,7 +24,7 @@ function BannerDisplay({ data }) {
       // Create a temporary link element
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = `spotify-banner-${artistId}-${deviceType || 'banner'}.jpg`;
+      link.download = downloadName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -32,7 +36,7 @@ function BannerDisplay({ data }) {
       // Fallback to simple link download
     const link = document.createElement('a');
     link.href = imageUrl;
-      link.download = `spotify-banner-${artistId}-${deviceType || 'banner'}.jpg`;
+      link.download = downloadName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

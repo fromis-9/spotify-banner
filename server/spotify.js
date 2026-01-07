@@ -2,6 +2,36 @@ const puppeteer = require('puppeteer');
 const fs = require("fs").promises;
 const path = require("path");
 
+function normalizeSpotifyImageCdnUrl(imageUrl) {
+  try {
+    const url = new URL(imageUrl);
+
+    // Some Spotify pages reference the image via this host, which can serve
+    // a transformed/cropped variant. Prefer the direct image CDN host.
+    if (url.hostname === 'image-cdn-ak.spotifycdn.com') {
+      url.hostname = 'i2o.scdn.co';
+    }
+
+    // Normalize i.scdn.co to i2o.scdn.co for consistency
+    if (url.hostname === 'i.scdn.co') {
+      url.hostname = 'i2o.scdn.co';
+    }
+
+    return url.toString();
+  } catch {
+    return imageUrl;
+  }
+}
+
+function extensionFromContentType(contentType) {
+  const ct = String(contentType || '').toLowerCase();
+  if (ct.includes('image/webp')) return 'webp';
+  if (ct.includes('image/png')) return 'png';
+  if (ct.includes('image/jpeg') || ct.includes('image/jpg')) return 'jpg';
+  if (ct.includes('image/avif')) return 'avif';
+  return 'jpg';
+}
+
 async function ensureImagesDir() {
   const imagesDir = path.join(__dirname, "images");
   try {
@@ -240,12 +270,12 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
  * Also using Browserless for downloading
  */
 async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
+  let browser;
   try {
     await ensureImagesDir();
     
     const browserlessToken = process.env.BROWSERLESS_TOKEN;
     
-    let browser;
     if (browserlessToken) {
       console.log('Using Browserless.io for image download');
       browser = await puppeteer.connect({
@@ -265,25 +295,40 @@ async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
     
     const page = await browser.newPage();
     
-    // Generate a valid filename - avoid using URL parts in filename
-    const extension = 'jpg'; // Default to jpg since most Spotify images are jpg
+    // Prefer a stable CDN host + force a JPEG response when possible to avoid
+    // saving WebP bytes under a .jpg filename (causes broken/partial renders).
+    const normalizedImageUrl = normalizeSpotifyImageCdnUrl(imageUrl);
+    await page.setExtraHTTPHeaders({
+      // Keep this minimal; Spotify will still return an image/* response.
+      accept: 'image/jpeg,image/*;q=0.8,*/*;q=0.5'
+    });
+
+    console.log(`Downloading image from: ${normalizedImageUrl}`);
+    
+    const response = await page.goto(normalizedImageUrl);
+    if (!response) {
+      throw new Error('No response received while downloading banner image');
+    }
+    const contentType = response?.headers?.()['content-type'];
+    const extension = extensionFromContentType(contentType);
     const filename = `${artistId}_${deviceType}_banner.${extension}`;
     const filePath = path.join(__dirname, 'images', filename);
-    
-    console.log(`Downloading image from: ${imageUrl}`);
-    
-    const response = await page.goto(imageUrl);
     
     const imageBuffer = await response.buffer();
     
     await fs.writeFile(filePath, imageBuffer);
     console.log(`Banner saved to: ${filePath}`);
     
-    await browser.close();
     return filename;
   } catch (error) {
     console.error('Error downloading banner image:', error);
     return null;
+  } finally {
+    try {
+      if (browser) await browser.close();
+    } catch (_) {
+      // ignore close errors
+    }
   }
 }
 
@@ -322,7 +367,7 @@ async function processArtistUrl(artistUrl, deviceType = 'desktop') {
       success: true,
       data: {
         artistUrl: normalizedUrl,
-        bannerUrl,
+        bannerUrl: normalizeSpotifyImageCdnUrl(bannerUrl),
         imagePath: `/images/${filename}`,
         artistId,
         deviceType
