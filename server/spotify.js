@@ -171,9 +171,47 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
     const bannerUrl = await page.evaluate((deviceType) => {
       // Helper function to extract URL from background-image style
       function extractUrlFromStyle(style) {
-        if (!style || !style.includes('url(')) return null;
-        const match = style.match(/url\(['"]?(.*?)['"]?\)/);
-        return match ? match[1] : null;
+        if (!style) return null;
+
+        // Spotify often uses image-set(...) or multiple url(...) entries.
+        // Pull all url(...) occurrences and prefer the last/highest-res.
+        const urlMatches = Array.from(style.matchAll(/url\(['"]?(.*?)['"]?\)/g)).map(m => m[1]).filter(Boolean);
+        if (urlMatches.length > 0) return urlMatches[urlMatches.length - 1];
+
+        return null;
+      }
+
+      // Helper: prefer highest-res candidate from an <img> (srcset if present)
+      function bestImageCandidate(img) {
+        if (!img) return null;
+
+        const srcset = img.getAttribute && img.getAttribute('srcset');
+        if (srcset) {
+          // Example: "https://... 640w, https://... 1280w" OR "... 1x, ... 2x"
+          const candidates = srcset
+            .split(',')
+            .map(s => s.trim())
+            .map(entry => {
+              const parts = entry.split(/\s+/);
+              const url = parts[0];
+              const descriptor = parts[1] || '';
+              let score = 0;
+              const w = descriptor.endsWith('w') ? parseFloat(descriptor.slice(0, -1)) : NaN;
+              const x = descriptor.endsWith('x') ? parseFloat(descriptor.slice(0, -1)) : NaN;
+              if (!Number.isNaN(w)) score = w;
+              else if (!Number.isNaN(x)) score = x * 10000;
+              return { url, score };
+            })
+            .filter(c => c.url);
+
+          if (candidates.length) {
+            candidates.sort((a, b) => (b.score || 0) - (a.score || 0));
+            return candidates[0].url;
+          }
+        }
+
+        // currentSrc can be helpful, but it may be a lower-res choice; use it as fallback.
+        return img.currentSrc || img.src || null;
       }
       
       // Mobile-specific logic
@@ -193,7 +231,7 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
             const rectB = b.getBoundingClientRect();
             return (rectB.width * rectB.height) - (rectA.width * rectA.height);
           });
-          return sortedMobile[0].src;
+          return bestImageCandidate(sortedMobile[0]);
         }
       }
       
@@ -211,8 +249,9 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
       const entityImage = document.querySelector('div[data-testid="entity-image"]');
       if (entityImage) {
         const img = entityImage.querySelector('img');
-        if (img && img.src) {
-          return img.src;
+        if (img) {
+          const best = bestImageCandidate(img);
+          if (best) return best;
         }
         
         const style = window.getComputedStyle(entityImage).backgroundImage;
@@ -244,7 +283,7 @@ async function extractArtistBanner(artistUrl, deviceType = 'desktop') {
           return (rectB.width * rectB.height) - (rectA.width * rectA.height);
         });
       
-      return possibleBanners.length > 0 ? possibleBanners[0].src : null;
+      return possibleBanners.length > 0 ? bestImageCandidate(possibleBanners[0]) : null;
     }, deviceType);
     
     // Close browser before returning
@@ -310,6 +349,7 @@ async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
       throw new Error('No response received while downloading banner image');
     }
     const contentType = response?.headers?.()['content-type'];
+    console.log(`Downloaded content-type: ${contentType || 'unknown'}`);
     const extension = extensionFromContentType(contentType);
     const filename = `${artistId}_${deviceType}_banner.${extension}`;
     const filePath = path.join(__dirname, 'images', filename);
