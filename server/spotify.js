@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require("fs").promises;
 const path = require("path");
 
-function normalizeSpotifyImageCdnUrl(imageUrl) {
+function normalizeSpotifyImageCdnUrl(imageUrl, { desiredWidth } = {}) {
   try {
     const url = new URL(imageUrl);
 
@@ -15,6 +15,12 @@ function normalizeSpotifyImageCdnUrl(imageUrl) {
     // Normalize i.scdn.co to i2o.scdn.co for consistency
     if (url.hostname === 'i.scdn.co') {
       url.hostname = 'i2o.scdn.co';
+    }
+
+    // Ask for a larger width when the CDN supports it; this often yields the
+    // full-resolution banner instead of a cropped/downsized variant.
+    if (desiredWidth && !url.searchParams.has('imwidth')) {
+      url.searchParams.set('imwidth', String(desiredWidth));
     }
 
     return url.toString();
@@ -336,7 +342,7 @@ async function downloadBannerImage(imageUrl, artistId, deviceType = 'desktop') {
     
     // Prefer a stable CDN host + force a JPEG response when possible to avoid
     // saving WebP bytes under a .jpg filename (causes broken/partial renders).
-    const normalizedImageUrl = normalizeSpotifyImageCdnUrl(imageUrl);
+    const normalizedImageUrl = normalizeSpotifyImageCdnUrl(imageUrl, { desiredWidth: 2400 });
     await page.setExtraHTTPHeaders({
       // Keep this minimal; Spotify will still return an image/* response.
       accept: 'image/jpeg,image/*;q=0.8,*/*;q=0.5'
