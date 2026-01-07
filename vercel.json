@@ -8,6 +8,7 @@
       { "src": "/favicon.ico", "dest": "/client/favicon.ico" },
       { "src": "/manifest.json", "dest": "/client/manifest.json" },
       { "src": "/asset-manifest.json", "dest": "/client/asset-manifest.json" },
+      { "src": "/ads.txt", "dest": "/client/ads.txt" },
       { "src": "/api/(.*)", "dest": "/api/$1" },
       { "src": "/(.*)", "dest": "/client/index.html" }
     ]
