@@ -107,7 +107,7 @@ function App() {
 
       <footer className="app-footer">
         <p>
-          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">corinthians</a> | <a href="mailto:me@c-o.dev" title="Report a problem or get in touch">contact</a> | <button className="legal-link" onClick={() => setShowLegal('privacy')}>privacy</button> | <button className="legal-link" onClick={() => setShowLegal(true)}>legal</button>
+          not affiliated with spotify | <a href="https://github.com/fromis-9" target="_blank" rel="noopener noreferrer">corinthians</a> | <a href="mailto:me@c-o.dev" title="Report a problem or get in touch">contact</a> | <button className="legal-link" onClick={() => setShowLegal('privacy')}>privacy</button> | <button className="legal-link" onClick={() => setShowLegal(true)}>legal</button> | <a href="https://www.buymeacoffee.com/corinthians" target="_blank" rel="noopener noreferrer">buy me a coffee</a>
         </p>
       </footer>
     </div>
