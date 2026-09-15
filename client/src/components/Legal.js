@@ -1,5 +1,6 @@
 import React from 'react';
 import './Legal.css';
+import { PrivacyDetails } from './Privacy';
 
 function Legal({ onBack }) {
   return (
@@ -29,11 +30,7 @@ function Legal({ onBack }) {
 
         <section>
           <h2>privacy</h2>
-          <p>
-            we do not store, track, or retain any personal data. artist urls are processed 
-            temporarily to extract banner images and are not saved. we do not use cookies 
-            or analytics tracking.
-          </p>
+          <PrivacyDetails />
         </section>
 
         <section>

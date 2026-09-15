@@ -1,72 +1,26 @@
-.info-section {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
+.info-section { padding-top: 28px; border-top: 1px solid var(--border); scroll-margin-top: 28px; }
+.info-section h2 { font-size: 1rem; font-weight: 600; margin: 0 0 12px; }
+.info-content { color: var(--muted); line-height: 1.65; }
+.info-content p { margin: 0 0 12px; }
+.info-content ul { padding-left: 20px; margin: 12px 0; }
+.info-content li { margin: 6px 0; }
+.info-content strong { font-weight: 600; color: var(--text); }
+.info-content code { font-size: .875rem; overflow-wrap: anywhere; color: var(--text); }
 
-.info-section h2 {
-  margin: 0 0 16px 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.025em;
-}
-
-.info-content {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.info-content p {
-  margin: 0 0 12px 0;
-}
-
-.info-content p:last-child {
-  margin-bottom: 0;
-}
-
-.info-content ul {
-  margin: 12px 0;
-  padding-left: 16px;
-}
-
-.info-content li {
-  margin: 6px 0;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.info-content code {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  font-size: 0.8rem;
-  color: #ffffff;
-}
-
-@media (max-width: 768px) {
-  .info-section {
-    margin: 60px auto 0;
-  }
-  
-  .info-section h2 {
-    margin-bottom: 24px;
-  }
-  
-  .info-content {
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-  
-  .info-content p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
+.guide-section { margin-top: 32px; }
+.guide-steps { margin: 0; padding-left: 22px; }
+.guide-steps li { padding-left: 4px; margin-bottom: 14px; }
+.url-examples { margin: 18px 0; }
+.url-examples > div { padding: 12px 0; border-top: 1px solid var(--border); }
+.url-examples dt { font-size: .875rem; margin-bottom: 5px; }
+.url-examples dd { margin: 0; }
+.version-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 18px 0; }
+.version-guide > div { border-top: 1px solid var(--border); padding-top: 12px; }
+.version-guide h3 { margin: 0 0 8px; color: var(--text); font-size: .875rem; font-weight: 600; }
+.faq details { border-bottom: 1px solid var(--border); }
+.faq summary { cursor: pointer; padding: 14px 0; font-size: 1rem; }
+.faq summary:hover { color: var(--accent); }
+.faq details p { margin: 0 0 18px; color: var(--muted); line-height: 1.65; }
+@media (max-width: 480px) {
+  .version-guide { grid-template-columns: 1fr; gap: 12px; }
 }

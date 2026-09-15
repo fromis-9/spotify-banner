@@ -34,3 +34,8 @@ yarn-error.log*
 logs
 *.log 
 .vercel
+
+# Cached artwork and local usage ledger
+server/images/
+server/.cache/
+!server/.env.example

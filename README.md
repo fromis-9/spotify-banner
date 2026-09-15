@@ -1,21 +1,36 @@
 # spotifybanner.com
 
-**spotifybanner.com** is a simple, fast web application that extracts high-quality banner images from Spotify artist pages with a single click.
+**spotifybanner.com** retrieves Spotify artist banners and profile images, plus album, track, and playlist cover artwork.
 
-## Why spotifybanner.com?
+## Artwork extraction
 
-Finding high-resolution artist banners from Spotify can be time-consuming and technical, often requiring you to inspect page elements or use developer tools. spotifybanner.com makes this process effortless:
+One input accepts public artist, album, track, and playlist links (including localized URLs and Spotify URIs).
 
-1. Paste any Spotify artist URL
-2. Click "Extract Banner"
-3. Download the high-quality banner image
+- Album, track, and playlist covers: ordinary HTTPS requests read page metadata. These paths never launch a browser.
+- Artist banners: Puppeteer/Browserless reads the desktop page by default. Banner and profile photos have distinct labels. Known artist-photo renditions are consolidated using their asset ID and actual image dimensions; the largest found is retained.
+- The mobile selector is retained behind `REACT_APP_ENABLE_ARTIST_VIEW_SELECTOR=true` (off by default). Set it in the client build environment and restart/rebuild to restore the control. Both backend extraction modes remain available.
+- Images download directly from allowlisted Spotify image hosts; downloading does not open another browser.
+- The client displays actual dimensions after each preview loads, plus format and download controls.
+- Results are cached in memory for six hours. Concurrent identical requests share one extraction. Failed or partial requests have a one-minute cooldown.
+- Cached image files are cleaned up after 24 hours. Image variants are limited to those actually found; no unverified upscaling promises.
 
-## Features
+### Browser cost controls
 
-- **High-Quality Images**: Extracts the largest, highest resolution banner available
-- **Fast Processing**: Banner extraction takes just seconds
-- **Direct Download**: Save images with a single click
-- **Mobile-Friendly**: Works on all devices, from desktop to mobile
+The default limit reserves 20 units/day and 600/month, at two units per attempted browser connection. Only one browser runs at a time and sessions close after 40 seconds. Failed attempts still count. Set either `BROWSER_DAILY_UNIT_LIMIT` or `BROWSER_MONTHLY_UNIT_LIMIT` to `0` to stop browser use while leaving covers working.
+
+The ledger defaults to `server/.cache/browser-budget.json`. **Set `ARTWORK_CACHE_DIR` to a persistent volume in production**; ephemeral storage can lose the ledger on redeployment. These controls assume one server process. Multiple replicas require a shared atomic budget store. Provider charges, connection failures, proxies, and other applications using the same account are outside this local counter: also set provider-side spending controls and monitor actual usage. No proxy or CAPTCHA services are enabled by this implementation.
+
+See `server/.env.example`. Supply environment variables through your host or shell; `.env` files are not loaded automatically. `PUPPETEER_EXECUTABLE_PATH` can point to an installed Chrome for local tests. The production client continues to target the existing Render backend, so deploy the updated backend before releasing the frontend.
+
+### Validation
+
+```sh
+cd server
+node --test artwork.test.js
+cd ../client
+CI=true npm test -- --watchAll=false
+npm run build
+```
 
 ## Examples
 

@@ -1,140 +1,24 @@
-.banner-display {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
+.banner-display { margin: 0 0 38px; padding-top: 24px; border-top: 1px solid var(--border); }
+.banner-container { display: flex; flex-direction: column; gap: 20px; }
+.banner-image { display: block; width: 100%; height: auto; }
+.banner-info h3 { margin: 0 0 14px; font-size: 1rem; font-weight: 600; }
+.info-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: .875rem; }
+.info-row:last-child { border: 0; }
+.info-label { color: var(--muted); }
+.info-value { overflow-wrap: anywhere; text-align: right; min-width: 0; }
+.device-indicator { color: var(--accent); }
+.download-btn { min-height: 44px; padding: 8px 18px; border: 1px solid var(--button-green); background: var(--button-green); color: #fff; font-size: .875rem; }
+.download-btn:hover { background: var(--button-hover); border-color: var(--button-hover); }
+.banner-info h2 { margin: 0; font-size: 1.1rem; font-weight: 600; overflow-wrap: anywhere; }
+.artwork-description, .artwork-meta, .source-link { color: var(--muted); font-size: .875rem; }
+.artwork-description { margin: 8px 0; }
+.artwork-image { margin-top: 24px; min-width: 0; }
+.artwork-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.artwork-heading h3 { font-size: 1rem; font-weight: 500; margin: 0; }
+.cover-image { max-width: 360px; }
+.artwork-actions { display: flex; align-items: center; gap: 18px; margin-top: 14px; font-size: .875rem; }
+.artwork-notice { padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--muted); }
+.download-error { color: var(--error); font-size: .875rem; }
 
-.banner-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.banner-image {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
-}
-
-.banner-image:hover {
-  transform: scale(1.02);
-}
-
-.banner-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.banner-info h3 {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.3;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.8rem;
-}
-
-.info-row:last-child {
-  border-bottom: none;
-}
-
-.info-label {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
-}
-
-.info-value {
-  color: #ffffff;
-  font-weight: 600;
-  text-align: right;
-  max-width: 60%;
-  word-break: break-all;
-  font-size: 0.75rem;
-}
-
-.device-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  background: rgba(8, 130, 51, 0.2);
-  border: 1px solid rgba(8, 130, 51, 0.3);
-  border-radius: 6px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #ffffff;
-  text-transform: lowercase;
-  letter-spacing: 0.025em;
-}
-
-.download-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #088233, #065a26);
-  border: none;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(8, 130, 51, 0.3);
-}
-
-.download-btn:hover {
-  background: linear-gradient(135deg, #0a9d3d, #077030);
-  box-shadow: 0 4px 12px rgba(8, 130, 51, 0.4);
-  transform: translateY(-1px);
-}
-
-@media (max-width: 768px) {
-  .banner-display {
-    margin: 40px auto;
-  }
-  
-  .banner-display h2 {
-    margin-bottom: 32px;
-  }
-  
-  .banner-image-container {
-    margin-bottom: 24px;
-    border-radius: 20px;
-  }
-  
-  .banner-image {
-    border-radius: 20px;
-  }
-  
-  .info-item {
-    padding: 16px 20px;
-    border-radius: 12px;
-  }
-  
-  .banner-actions {
-    margin-top: 32px;
-  }
-  
-  .download-button {
-    padding: 14px 24px;
-    font-size: 0.9375rem;
-  }
-}
+.artwork-external-link { display: inline-flex; align-items: center; gap: 6px; }
+.external-link-icon { width: 13px; height: 13px; flex-shrink: 0; opacity: .75; }
