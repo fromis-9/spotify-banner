@@ -64,6 +64,11 @@ function BannerDisplay({ data }) {
       <div className="banner-container">
         {images.map(image => <ArtworkImage key={image.imagePath} image={image} title={data.title} />)}
       </div>
+      <p className="artwork-support">
+        finding this useful?{' '}
+        <a href="https://www.buymeacoffee.com/corinthians" target="_blank" rel="noopener noreferrer">buy me a coffee</a>{' '}
+        to help cover hosting and banner extraction costs.
+      </p>
     </section>
   );
 }

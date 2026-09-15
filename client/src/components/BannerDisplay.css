@@ -22,3 +22,7 @@
 
 .artwork-external-link { display: inline-flex; align-items: center; gap: 6px; }
 .external-link-icon { width: 13px; height: 13px; flex-shrink: 0; opacity: .75; }
+
+.artwork-support { margin: 28px 0 0; color: var(--muted); font-size: .875rem; }
+.artwork-support a { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
+.artwork-support a:hover { color: var(--accent); }
