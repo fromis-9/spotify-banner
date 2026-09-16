@@ -10,6 +10,6 @@
 .submit-btn { min-height: 44px; padding: 10px 22px; border: 1px solid var(--button-green); border-radius: 0; background: var(--button-green); color: #fff; font-size: .875rem; }
 .submit-btn:hover:not(:disabled) { background: var(--button-hover); border-color: var(--button-hover); }
 
-.url-input:focus { border-color: var(--accent); }
+.url-input:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: -2px; }
 
 .form-hint { margin: 8px 0 0; color: var(--muted); font-size: .875rem; }
