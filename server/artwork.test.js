@@ -55,7 +55,7 @@ test('artist uses one browser and direct downloads, retaining separate banner an
   const {service,calls}=await fixture(t,{browser:async()=>{browsers++;return [{url:banner,label:'artist banner'}];},budget:{run:async fn=>{charges++;return fn();}}});
   const r=await service.processSpotifyUrl(`https://open.spotify.com/artist/${id}`,'mobile');
   assert.equal(r.success,true);assert.equal(browsers,1);assert.equal(charges,1);
-  assert.deepEqual(r.data.images.map(i=>i.label),['artist banner','profile photo']);assert.ok(calls.includes(banner));
+  assert.deepEqual(r.data.images.map(i=>i.label),['artist banner','profile photo']);assert.equal(r.data.images[0].sourceUrl,banner);assert.ok(calls.includes(banner));
 });
 test('budget exhaustion still allows profile artwork and does not falsely label it a banner',async t=>{
   const {service}=await fixture(t,{budget:{run:async()=>{throw new Error('Banner extraction has reached its usage limit.');}},browser:()=>assert.fail('Budget blocked browser')});
@@ -115,4 +115,25 @@ test('extraction consolidates actual downloaded portrait sizes in the final resu
   const {service}=await fixture(t,{request,browser:async()=>[{url:small,label:'artist image'}],budget:{run:fn=>fn()}});
   const result=await service.processSpotifyUrl(`https://open.spotify.com/artist/${id}`,'mobile');
   assert.equal(result.data.images.length,1);assert.equal(result.data.images[0].width,640);assert.equal(result.data.images[0].label,'profile photo');
+});
+
+
+test('separate budgets sharing a ledger cannot reserve simultaneously', async t => {
+  const {directory} = await fixture(t);
+  const options = {file:path.join(directory,'shared-budget.json'),daily:2,monthly:2};
+  let release, started;
+  const ready = new Promise(resolve => { started = resolve; });
+  const first = createBrowserBudget(options).run(() => new Promise(resolve => { release = resolve; started(); }));
+  await ready;
+  await assert.rejects(createBrowserBudget(options).run(() => assert.fail('concurrent browser')), /busy/);
+  release();
+  await first;
+  await assert.rejects(createBrowserBudget(options).run(() => assert.fail('extra browser')), /usage limit/);
+});
+
+test('negative counters cannot reset the budget, even in an expired ledger', async t => {
+  const {directory} = await fixture(t);
+  const file = path.join(directory,'invalid-budget.json');
+  await fs.writeFile(file, JSON.stringify({day:'2000-01-01',month:'2000-01',daily:-100,monthly:-100}));
+  await assert.rejects(createBrowserBudget({file}).run(() => assert.fail('invalid ledger')), /Invalid browser budget/);
 });

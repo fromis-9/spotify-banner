@@ -71,7 +71,6 @@ function createArtworkService({ request = requestBuffer, browser = extractBanner
       } catch { failed++; }
     }
     if (resource.type === 'artist') images = consolidateArtistImages(images);
-    images = images.map(({sourceUrl, ...image}) => image);
     if (!images.length) return {success:false,error:'Artwork was found but could not be downloaded. Please try again later.'};
     if (resource.type === 'artist' && !images.some(i=>i.label==='artist banner') && !notice) notice = 'No separate banner was found. These are the available artist images.';
     if (failed) notice += `${notice ? ' ' : ''}Some images could not be downloaded.`;

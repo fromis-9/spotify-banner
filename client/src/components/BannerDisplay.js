@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import config from '../config';
+import { fetchImage, saveBlob, artworkZip, safeFilename } from '../artwork-downloads';
 import './BannerDisplay.css';
 
 function ExternalLinkIcon() {
@@ -14,23 +15,23 @@ function ArtworkImage({ image, title }) {
   const [dimensions, setDimensions] = useState(null);
   const [error, setError] = useState('');
   const [downloading, setDownloading] = useState(false);
+  const [copyStatus, setCopyStatus] = useState('');
   const url = `${config.apiUrl}${image.imagePath}`;
   async function download() {
     setError(''); setDownloading(true);
     try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Download failed');
-      const blob = await response.blob();
-      if (!blob.type.startsWith('image/')) throw new Error('Image unavailable');
-      const objectUrl = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = objectUrl;
-      link.download = image.imagePath.split('/').pop();
-      document.body.appendChild(link); link.click(); link.remove();
-      setTimeout(() => URL.revokeObjectURL(objectUrl),1000);
+      saveBlob(await fetchImage(image), image.imagePath.split('/').pop());
     } catch {
       setError('Download failed. Try opening the image below, or request the artwork again.');
     } finally { setDownloading(false); }
+  }
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(image.sourceUrl);
+      setCopyStatus('image link copied');
+    } catch {
+      setCopyStatus('Could not copy automatically. Select the image link below to copy it.');
+    }
   }
   return (
     <article className="artwork-image">
@@ -44,12 +45,26 @@ function ArtworkImage({ image, title }) {
       <div className="artwork-actions">
         <button onClick={download} className="download-btn" disabled={downloading}>{downloading ? 'downloading…' : 'download'}</button>
         <a className="artwork-external-link" href={url} target="_blank" rel="noopener noreferrer">open image <ExternalLinkIcon /></a>
+        {image.sourceUrl && <button type="button" className="copy-link-btn" onClick={copyLink}>copy image link</button>}
       </div>
+      {copyStatus && <p className="copy-status" role="status">{copyStatus}</p>}
+      {copyStatus.startsWith('Could not') && <input className="copy-link-fallback" aria-label="original image link" readOnly value={image.sourceUrl} onFocus={event => event.target.select()} />}
       {error && <p className="download-error" role="alert">{error}</p>}
     </article>
   );
 }
 function BannerDisplay({ data }) {
+  const [downloadingAll, setDownloadingAll] = useState(false);
+  const [archiveError, setArchiveError] = useState('');
+  async function downloadAll() {
+    setDownloadingAll(true);
+    setArchiveError('');
+    try {
+      saveBlob(await artworkZip(images), `${safeFilename(data.title)}-artwork.zip`);
+    } catch {
+      setArchiveError('Could not download all images. Try downloading them individually, or request the artwork again.');
+    } finally { setDownloadingAll(false); }
+  }
   const images = data.type === 'artist'
     ? [...data.images].sort((a, b) => Number(b.label === 'profile photo') - Number(a.label === 'profile photo'))
     : data.images;
@@ -64,6 +79,10 @@ function BannerDisplay({ data }) {
       <div className="banner-container">
         {images.map(image => <ArtworkImage key={image.imagePath} image={image} title={data.title} />)}
       </div>
+      {images.length > 1 && <div className="download-all">
+        <button type="button" className="download-btn" disabled={downloadingAll} onClick={downloadAll}>{downloadingAll ? 'preparing zip…' : 'download all images (.zip)'}</button>
+        {archiveError && <p className="download-error" role="alert">{archiveError}</p>}
+      </div>}
       <p className="artwork-support">
         finding this useful?{' '}
         <a href="https://www.buymeacoffee.com/corinthians" target="_blank" rel="noopener noreferrer">buy me a coffee</a>{' '}

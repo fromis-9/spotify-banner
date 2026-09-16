@@ -26,3 +26,10 @@
 .artwork-support { margin: 28px 0 0; color: var(--muted); font-size: .875rem; }
 .artwork-support a { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
 .artwork-support a:hover { color: var(--accent); }
+
+.artwork-actions { flex-wrap: wrap; }
+.copy-link-btn { min-height: 44px; padding: 0; background: none; border: 0; color: var(--muted); font: inherit; }
+.copy-link-btn:hover { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
+.copy-status { color: var(--muted); font-size: .875rem; }
+.copy-link-fallback { width: 100%; padding: 8px; border: 1px solid var(--border); background: transparent; color: var(--text); }
+.download-all { margin-top: 28px; }

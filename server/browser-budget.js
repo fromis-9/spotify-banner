@@ -9,10 +9,18 @@ function createBrowserBudget({ file = path.join(process.env.ARTWORK_CACHE_DIR ||
       if (busy) throw new Error('Banner extraction is busy. Please try again shortly.');
       if (!Number.isFinite(daily) || !Number.isFinite(monthly) || daily < 2 || monthly < 2) throw new Error('Banner extraction is temporarily paused. Cover downloads are still available.');
       busy = true;
+      let lock;
       try {
+        await fs.mkdir(path.dirname(file), { recursive: true });
+        try { lock = await fs.open(file + '.lock', 'wx'); }
+        catch (error) {
+          if (error.code === 'EEXIST') throw new Error('Banner extraction is busy. Please try again shortly.');
+          throw error;
+        }
         let usage;
         try { usage = JSON.parse(await fs.readFile(file, 'utf8')); }
-        catch (error) { if (error.code !== 'ENOENT') throw error; usage = {}; }
+        catch (error) { if (error.code !== 'ENOENT') throw error; usage = {day: '', month: '', daily: 0, monthly: 0}; }
+        if (!usage || !Number.isSafeInteger(usage.daily) || !Number.isSafeInteger(usage.monthly) || usage.daily < 0 || usage.monthly < 0 || typeof usage.day !== 'string' || typeof usage.month !== 'string') throw new Error('Invalid browser budget ledger.');
         const day = now().toISOString().slice(0,10), month = day.slice(0,7);
         if (usage.day !== day) { usage.day = day; usage.daily = 0; }
         if (usage.month !== month) { usage.month = month; usage.monthly = 0; }
@@ -23,7 +31,14 @@ function createBrowserBudget({ file = path.join(process.env.ARTWORK_CACHE_DIR ||
         await fs.writeFile(file + '.tmp', JSON.stringify(usage));
         await fs.rename(file + '.tmp', file);
         return await task();
-      } finally { busy = false; }
+      } finally {
+        try {
+          if (lock) {
+            await lock.close();
+            await fs.unlink(file + '.lock');
+          }
+        } finally { busy = false; }
+      }
     }
   };
 }

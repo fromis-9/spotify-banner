@@ -115,3 +115,11 @@ Not affiliated with Spotify
 ---
 
 Made with ❤️ by @corinthians
+
+### Extraction rate limit
+
+Both `/api/extractartwork` and the legacy `/api/extractbanner` share a limit of **5 requests per 10 minutes per IP** (IPv6 addresses are grouped by /56). Invalid requests reaching these handlers also count. Blocked requests receive HTTP 429, a JSON error, and `Retry-After`; they never reach the extractor. Cached image downloads and health checks are unaffected. Counters are temporary, in-memory, and reset on process restarts. This slows repeated requests; it does not replace the persistent browser budget or protect against clients using many networks.
+
+`TRUSTED_PROXY_CIDRS` optionally accepts comma-separated addresses/CIDRs of your verified reverse proxies. By default, forwarded IP headers are not trusted. Behind an unconfigured proxy, requests can share a single limit; configure the actual hosting proxy addresses before enabling per-visitor limits in production. Do not set broad trust rules to accept user-supplied forwarded IPs. Run one instance; multiple instances need shared rate-limit and budget storage.
+
+The browser ledger uses an exclusive lock file to prevent overlapping reservations by processes sharing that file. A process crash can leave a `.lock` file and pause banner extraction; remove that lock only after confirming the previous browser/process has stopped. A missing or corrupt storage mount is not a substitute for persistent storage, and separate replica disks do not share this lock. Daily and monthly counters use UTC calendar periods, not the provider's billing cycle.
